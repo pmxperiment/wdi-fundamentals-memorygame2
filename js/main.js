@@ -7,7 +7,31 @@
 //8.2 Create a variable cardOne, store first item in the "cards" array in variable
 //8.2 add this first card to the cardsInPlay array
 //8.3 console.log() to display the card user flipped, message displayed "User flipped queen".
-var cards = ['Queen', 'Queen', 'King', 'King'];
+//10.1 Delete the four strings from the cards array
+//10.1 In the cards array, create four objects, one for each card.
+var cards = [
+{
+rank: 'queen',
+suit: 'hearts',
+cardImage: "images/queen-of-hearts.png"
+},
+{
+rank: 'queen',
+suit: 'diamonds',
+cardImage: "images/queen-of-diamonds.png"
+},
+{
+rank: 'king',
+suit: 'hearts',
+cardImage: "images/king-of-hearts.png"
+},
+{
+rank: 'king',
+suit: 'diamonds',
+cardImage: "images/king-of-diamonds.png"
+}
+];
+
 var cardsInPlay = [];
 //9.5 Right below the cardsInPlay array & above the flipCard function, create a 
 //9.5 function checkForMatch. Move the following lines of code into checkForMatch function.
@@ -35,20 +59,22 @@ alert("Sorry, try again.");
 //9.4 Now, on the next line, call the flipCard function again, passing in 2 as an argument
 //9.6 ???call the checkForMatch function from inside 
 //9.6 the flipCard function, where the lines above used to sit
+//10.2 In the flipCard function, find this console.log 
+//10.2 statement: console.log("User flipped " + cards[cardId]);
+//10.3 Update the portion cards[cardId] to cards[cardId].rank
+//10.4 update the cards[cardId] portion of cardsInPlay.push(cards[cardId]);
+//10.4 You'll want to push the name of the card ("queen" or "king") to the cardsInPlay array
 var flipCard = function(cardId) {
-console.log("User Flipped " + cards[cardId]);
-cardsInPlay.push(cards[cardId]);
+console.log("User Flipped " + cards[cardId].rank);
+cardsInPlay.push(cards[cardId].rank);
+//Add two console.log() statements. One should log the cardImage and the other should log the 
+//10.4 suit for the flipped card.
+console.log("User flipped " + cards[cardId].cardImage);
+console.log("User flipped " + cards[cardId].suit);
 checkForMatch();
 };
 
 flipCard(0);
 flipCard(2);
-
-
-
-
-
-
-
 
 
