@@ -37,10 +37,13 @@ var cardsInPlay = [];
 //9.5 function checkForMatch. Move the following lines of code into checkForMatch function.
 
 var checkForMatch = function() {
+//previously deleted (cardsInPlay.length === 2), re-added now fixes alert timing issue
+	if (cardsInPlay.length === 2) {
 if (cardsInPlay[0] === cardsInPlay[1]) {
 	alert("You found a match!");
 }else{
 alert("Sorry, try again.");
+}
 }
 };
 
@@ -64,17 +67,52 @@ alert("Sorry, try again.");
 //10.3 Update the portion cards[cardId] to cards[cardId].rank
 //10.4 update the cards[cardId] portion of cardsInPlay.push(cards[cardId]);
 //10.4 You'll want to push the name of the card ("queen" or "king") to the cardsInPlay array
-var flipCard = function(cardId) {
+//11.6 Remove the cardId parameter from the flip card function.
+var flipCard = function() {
+//11.6 On the first line inside the flipCard function, use the getAttribute method 
+//11.6 to get the data-id attribute of the card that was just clicked and store it 
+//11.6 in a variable cardId. EXAMPLE: this.getAttribute('attribute-we-want-to-get-goes-here');
+//var or not below? ... not var
+var cardId = this.getAttribute('data-id');
 console.log("User Flipped " + cards[cardId].rank);
+//11.7 use the setAttribute method to update the src attribute to the image of the 
+//11.7 card that was just clicked, which is stored in the cardImage property in 
+//11.7that card's object in the cards array. example: cardElement.setAttribute('src', 'images/back.png');
+this.src = cards[cardId].cardImage;
 cardsInPlay.push(cards[cardId].rank);
+checkForMatch();
 //Add two console.log() statements. One should log the cardImage and the other should log the 
 //10.4 suit for the flipped card.
-console.log("User flipped " + cards[cardId].cardImage);
-console.log("User flipped " + cards[cardId].suit);
-checkForMatch();
+console.log(cards[cardId].cardImage);
+console.log(cards[cardId].suit);
 };
 
-flipCard(0);
-flipCard(2);
 
+//11.2 after the flipCard function, write a new function called createBoard; with
+//11.2 no parameters.this function will create a new game board. 
+//11.2 Now add each card to the board. Within the createBoard function, 
+//11.2 use a for loop to loop through the cards array.
+var createBoard = function() {
+for (var i = 0; i < cards.length; i++) {
+//11.3 use createElement method to create an img element & store it in a variable cardElement.
+var cardElement = document.createElement('img');
+//11.3 use the setAttribute() method to add a src attribute for the cardElement. 
+//11.3 The src should be "images/back.png"
+//11.3 HINT/Example cardElement.setAttribute('attributeName', 'attributeValue');
+cardElement.setAttribute('src', 'images/back.png');
+//11.3 use the setAttribute() method once again to set the card's 'data-id' attribute 
+//11.3 to be the index of the current element, ?????? i ????? (no quotes).
+cardElement.setAttribute('data-id', i);
+//11.4 When each card is created (still within the for loop), we'll want to
+//11.4 use the addEventListener() method to add a click event to the cardElement
+//11.4 The function that we want to run when a user clicks on a card is the flipCard function.
+cardElement.addEventListener('click', flipCard);
+//11.4 use the appendChild() method to append the current cardElement to the 
+//11.4 (EXAMPLE   document.getElementsByTagName('body')[0].appendChild(boxElement);)
+//11.4 game board (it's an id) (which has an id of game-board).
+document.getElementById('game-board').appendChild(cardElement);
+}
+};
 
+//11.5 At the end of your JavaScript file, invoke the createBoard function.
+createBoard();
